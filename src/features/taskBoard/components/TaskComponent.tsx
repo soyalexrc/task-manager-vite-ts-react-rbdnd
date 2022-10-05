@@ -15,7 +15,8 @@ const StyledTask = styled(Paper, {
   display: 'flex',
   margin: '.5rem 0 ',
   border: '1px solid lightgray',
-  backgroundColor: isDragging ? '#fafafa' : 'white'
+  backgroundColor: isDragging ? '#fafafa' : 'white',
+
 }));
 
 export default function TaskComponent({task, index}: TaskElement) {

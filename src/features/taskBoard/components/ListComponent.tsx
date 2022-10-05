@@ -20,6 +20,10 @@ interface styledProps {
   theme?: any,
   isDraggingOver: boolean
 }
+interface DraggingProps {
+  theme?: any,
+  isDragging: boolean
+}
 
 const StyledList = styled(Paper, {
   shouldForwardProp: (prop) => prop !== 'isDraggingOver',
@@ -32,15 +36,9 @@ const StyledList = styled(Paper, {
   backgroundColor: isDraggingOver ? 'lightgray' : '#ebecf0'
 }));
 
-const StyledTask = styled(Paper)(({theme}) => ({
-  padding: '.5rem',
-  margin: '.5rem 0 ',
-  border: '1px solid lightgray',
-  backgroundColor: 'white'
-}));
-
-
-const ContainerList = styled(Paper)(({theme}) => ({
+const ContainerList = styled(Paper, {
+  shouldForwardProp: (prop) => prop !== 'isDragging',
+})(({theme, isDragging}: DraggingProps) => ({
   margin: '1rem .5rem',
   border: '1px solid lightgray',
   backgroundColor: '#ebecf0',
@@ -48,7 +46,8 @@ const ContainerList = styled(Paper)(({theme}) => ({
   minWidth: 270,
 
   display: 'flex',
-  flexDirection: 'column'
+  flexDirection: 'column',
+  // transform: isDragging ? 'rotate(10deg)' : 'rotate(0)'
 }));
 
 export default function ListComponent({column, index}: TasksList) {
@@ -83,6 +82,7 @@ export default function ListComponent({column, index}: TasksList) {
         <ContainerList
           {...provided.draggableProps}
           ref={provided.innerRef}
+          isDragging={snapshot.isDragging}
         >
           <Box p={2} {...provided.dragHandleProps} display='flex' alignItems='center' justifyContent='space-between'>
             <Typography fontWeight='bold'>{column.title}</Typography>

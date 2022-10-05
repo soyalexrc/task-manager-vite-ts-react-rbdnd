@@ -5,10 +5,15 @@ import {DragDropContext, Droppable, DroppableProvided, DroppableStateSnapshot} f
 import useDragDrop from "../hooks/useDragDrop";
 import {Column} from "@/shared/models/board";
 import CreateListComponent from "@/features/taskBoard/components/CreateListComponent";
+import {initialData} from '@/shared/utils/mock/board';
 
 
 export default function BoardComponent() {
   const {dragTask, setBoard, currentBoard} = useDragDrop()
+
+  useEffect(() => {
+    setBoard(initialData)
+  }, [])
 
   return (
     <DragDropContext
