@@ -16,7 +16,7 @@ export interface TasksList {
 
 export interface TaskElement {
   task: Task,
-  index: number
+  index: number,
 }
 
 export interface StylingProps {

@@ -1,8 +1,15 @@
 import React from 'react';
-import {setCurrentBoard, handleDragTaskSameColumn, handleDragTaskForeignColumn, handleDragColumn} from '@/store/slices/boards';
+import {
+  setCurrentBoard,
+  handleDragTaskSameColumn,
+  handleDragTaskForeignColumn,
+  handleDragColumn,
+  handleCreateColumn,
+  handleCreateTask
+} from '@/store/slices/boards';
 import {useSelector, useDispatch} from "@/store";
 import {DropResult} from "react-beautiful-dnd";
-import {Column, Task} from '../../../shared/models/board'
+import {Task} from "@/shared/models/board";
 
 export default function useDragDrop() {
   const {currentBoard} = useSelector((state: any) => state.boards)
@@ -12,8 +19,12 @@ export default function useDragDrop() {
     dispatch(setCurrentBoard(board))
   }
 
-  function dragColumn(event: any) {
+  function createColumn(columnTitle: string) {
+    dispatch(handleCreateColumn({columnTitle}))
+  }
 
+  function createTask(task: Task, index: number) {
+    dispatch(handleCreateTask({task, index}))
   }
 
   function dragTask(result: DropResult) {
@@ -32,15 +43,15 @@ export default function useDragDrop() {
     }
 
     if (type === 'column') {
-      dispatch(handleDragColumn({ destination, source, columnId: draggableId }))
+      dispatch(handleDragColumn({destination, source, columnId: draggableId}))
     }
-
-
   }
 
   return {
     currentBoard,
     setBoard,
-    dragTask
+    dragTask,
+    createColumn,
+    createTask
   }
 }

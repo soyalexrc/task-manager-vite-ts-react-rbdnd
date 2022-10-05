@@ -31,7 +31,6 @@ export default function TaskComponent({task, index}: TaskElement) {
           <p>{task.content}</p>
         </StyledTask>
       )}
-
     </Draggable>
 
   )
